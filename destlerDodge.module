@@ -1,0 +1,45 @@
+<?php
+/**
+ * Create block info module
+*/
+function destlerDodge_block_info() {
+	$block['destlerDodge'] = array(
+		'info' => t('Destler Dodge Block'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+	return $block;
+}
+function destlerDodge_render_array() {
+	$title_array = array();
+
+	return theme('destlerDodge_render_array', array('title_array' => $title_array));
+}
+/**
+ * Create block for module
+*/
+function destlerDodge_block_view($delta) {
+	switch($delta) {
+		case 'destlerDodge' :
+			$block = array();
+			
+				$block['subject'] = t('Destler Dodge');
+				
+				$block['content'] = destlerDodge_render_array();
+			
+			return $block;
+	}
+}
+/**
+ * Theme hook for block
+*/
+function destlerDodge_theme() {
+	$module_path = drupal_get_path('module', 'destlerDodge');
+	$base = array(
+		'path' => "$module_path/theme",
+	);
+	return array(
+		'destlerDodge_render_array' => $base + array(
+			'template' => 'destlerDodge_block',
+		),
+	);
+}
